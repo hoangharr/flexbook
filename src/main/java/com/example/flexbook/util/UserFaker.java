@@ -3,6 +3,7 @@ package com.example.flexbook.util;
 import com.example.flexbook.models.User;
 import com.example.flexbook.repository.UserRepo;
 import com.github.javafaker.Faker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,7 @@ public class UserFaker implements CommandLineRunner {
     private final UserRepo userRepo;
     private final Faker faker;
 
+    @Autowired
     public UserFaker(UserRepo userRepo) {
         this.userRepo = userRepo;
         this.faker = new Faker();
