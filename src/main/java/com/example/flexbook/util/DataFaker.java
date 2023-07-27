@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-public class UserFaker implements CommandLineRunner {
+public class DataFaker implements CommandLineRunner {
     private final UserRepo userRepo;
     private final Faker faker;
 
     @Autowired
-    public UserFaker(UserRepo userRepo) {
+    public DataFaker(UserRepo userRepo) {
         this.userRepo = userRepo;
         this.faker = new Faker();
     }
