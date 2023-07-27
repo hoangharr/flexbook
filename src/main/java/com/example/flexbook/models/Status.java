@@ -1,2 +1,8 @@
-package com.example.flexbook.models;public class Status {
+package com.example.flexbook.models;
+
+public enum Status {
+    PENDING,
+    ACCEPTED,
+    DECLINED,
+    BLOCKED
 }

@@ -3,7 +3,7 @@ package com.example.flexbook.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.util.*;
 
 
 @Entity
@@ -14,15 +14,13 @@ import java.sql.Timestamp;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable=false, updatable=false)
     private int post_id;
-    @Column(insertable=false, updatable=false)
-    private int user_id;
     private String content;
     private String post_image;
-    private Timestamp created_at;
-    private Timestamp updated_at;
+    private Date created_at;
+    private Date updated_at;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
+
 }
