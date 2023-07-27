@@ -21,7 +21,7 @@ public class UserFaker implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         int numUsers = 30;
         for (int i = 0; i < numUsers; i++) {
             User user = new User();
