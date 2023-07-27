@@ -44,7 +44,9 @@ public class DataFaker implements CommandLineRunner {
         generateComments();
         generateFriends();
     }
-
+    private <T> T getRandomElement(List<T> list) {
+        return list.get(faker.random().nextInt(list.size()));
+    }
     private void generateUsers() {
         int numUsers = 10;
         for (int i = 0; i < numUsers; i++) {
@@ -66,12 +68,7 @@ public class DataFaker implements CommandLineRunner {
             for (int i = 0; i < numPosts; i++) {
                 Post post = new Post();
                 post.setUser(user);
-                String content = faker.lorem().paragraph();
-                int maxContentLength = 500;
-                if (content.length() > maxContentLength) {
-                    content = content.substring(0, maxContentLength);
-                }
-                post.setContent(content);
+                post.setContent(faker.lorem().sentence());
                 post.setPost_image(faker.internet().image());
                 post.setCreated_at(faker.date().past(5, TimeUnit.DAYS));
                 post.setUpdated_at(faker.date().past(1, TimeUnit.DAYS));
@@ -81,10 +78,13 @@ public class DataFaker implements CommandLineRunner {
     }
 
     private void generateMessages() {
+        if (users.isEmpty()) {
+            return;
+        }
         int numMessages = 10;
         for (int i = 0; i < numMessages; i++) {
-            User sender = users.get(faker.random().nextInt(users.size()));
-            User receiver = users.get(faker.random().nextInt(users.size()));
+            User sender = getRandomElement(users);
+            User receiver = getRandomElement(users);
             while (receiver == sender) {
                 receiver = users.get(faker.random().nextInt(users.size()));
             }
@@ -99,10 +99,13 @@ public class DataFaker implements CommandLineRunner {
     }
 
     private void generateLikes() {
+        if (users.isEmpty() || posts.isEmpty()) {
+            return;
+        }
         int numLikes = 10;
         for (int i = 0; i < numLikes; i++) {
-            User user = users.get(faker.random().nextInt(users.size()));
-            Post post = posts.get(faker.random().nextInt(posts.size()));
+            User user = getRandomElement(users);
+            Post post = getRandomElement(posts);
             Like like = new Like();
             like.setUser(user);
             like.setPost(post);
@@ -112,10 +115,13 @@ public class DataFaker implements CommandLineRunner {
     }
 
     private void generateComments() {
+        if (users.isEmpty() || posts.isEmpty()) {
+            return;
+        }
         int numComments = 10;
         for (int i = 0; i < numComments; i++) {
-            User user = users.get(faker.random().nextInt(users.size()));
-            Post post = posts.get(faker.random().nextInt(posts.size()));
+            User user = getRandomElement(users);
+            Post post = getRandomElement(posts);
 
             Comment comment = new Comment();
             comment.setUser(user);
@@ -127,12 +133,15 @@ public class DataFaker implements CommandLineRunner {
     }
 
     private void generateFriends() {
+        if (users.isEmpty()) {
+            return;
+        }
         int numFriends = 10;
         for (int i = 0; i < numFriends; i++) {
-            User user1 = users.get(faker.random().nextInt(users.size()));
-            User user2 = users.get(faker.random().nextInt(users.size()));
+            User user1 = getRandomElement(users);
+            User user2 = getRandomElement(users);
             while (user1 == user2) {
-                user2 = users.get(faker.random().nextInt(users.size()));
+                user2 = getRandomElement(users);
             }
             Friend friend = new Friend();
             friend.setUser1(user1);
